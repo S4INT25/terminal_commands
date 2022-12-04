@@ -13,8 +13,8 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwu
 
 
 {
-  "name": "ls",
-  "description": "List directories",
+  "name": "cd",
+  "description": "Change directory",
   "platform": 1
 }
 

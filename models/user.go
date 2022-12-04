@@ -11,3 +11,9 @@ type User struct {
 	PassWordHash string
 	Commands     []Command
 }
+
+type UserResponse struct {
+	Id    uint
+	Name  string
+	Email string
+}

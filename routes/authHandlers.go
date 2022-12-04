@@ -18,6 +18,7 @@ func CreateUser(c *fiber.Ctx) error {
 	}{}
 
 	err := c.BodyParser(&body)
+
 	if err != nil {
 		return c.SendString(fmt.Sprintf("Failed to user  %v", err))
 	}
@@ -30,14 +31,10 @@ func CreateUser(c *fiber.Ctx) error {
 
 	database.AppDb.Create(&user)
 
-	return c.JSON(struct {
-		Id    uint
-		Name  string
-		Email string
-	}{
-		user.ID,
-		user.Name,
-		user.Email,
+	return c.JSON(models.UserResponse{
+		Id:    user.ID,
+		Name:  user.Name,
+		Email: user.Email,
 	})
 
 }
@@ -50,6 +47,7 @@ func Login(c *fiber.Ctx) error {
 	}{}
 
 	err := c.BodyParser(&body)
+
 	if err != nil {
 		return c.SendString("Failed to parse request body")
 	}

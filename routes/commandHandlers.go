@@ -7,19 +7,23 @@ import (
 	"terminal_commands/database"
 	"terminal_commands/middlewares"
 	"terminal_commands/models"
+	"terminal_commands/utils"
 )
 
 func GetCommands(c *fiber.Ctx) error {
 
-	var command []models.Command
+	var commands []models.Command
 
-	database.AppDb.Preload("User").Find(&command)
+	database.AppDb.Preload("User").Find(&commands)
 
-	if command == nil {
+	if commands == nil {
 		c.Response().SetStatusCode(fiber.StatusNoContent)
 		return c.JSON([]models.Command{})
 	}
-	return c.JSON(command)
+
+	response := utils.Map(commands, func(command models.Command) models.CommandResponse { return command.ToResponse() })
+
+	return c.JSON(response)
 
 }
 
@@ -45,7 +49,17 @@ func AddCommand(c *fiber.Ctx) error {
 
 	database.AppDb.Create(&command)
 
-	return c.JSON(command)
+	return c.JSON(models.CommandResponse{
+		Id:          command.ID,
+		Name:        command.Name,
+		Description: command.Description,
+		Platform:    command.Platform.Name(),
+		User: models.UserResponse{
+			Id:    command.User.ID,
+			Name:  command.User.Name,
+			Email: command.User.Email,
+		},
+	})
 
 }
 
