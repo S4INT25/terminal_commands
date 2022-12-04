@@ -23,9 +23,15 @@ func CreateUser(c *fiber.Ctx) error {
 		return c.SendString(fmt.Sprintf("Failed to user  %v", err))
 	}
 
+	hashedPassword, err := hashPassword(body.Password)
+
+	if err != nil {
+		return c.SendString(fmt.Sprintf("Failed to hash password %v", err))
+	}
+
 	user := models.User{
 		Email:        body.Email,
-		PassWordHash: hashPassword(body.Password),
+		PassWordHash: hashedPassword,
 		Name:         body.Name,
 	}
 
@@ -60,20 +66,19 @@ func Login(c *fiber.Ctx) error {
 
 		return c.JSON(utils.GenerateJwtToken(user))
 
-	} else {
-
-		return c.SendString("Invalid password")
 	}
+
+	return c.SendString("Invalid password")
 
 }
 
-func hashPassword(password string) string {
+func hashPassword(password string) (string, error) {
 
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
-		panic(fmt.Sprintf("failed to hash password %v", err))
+		return "", err
 	}
-	return string(bytes)
+	return string(bytes), nil
 }
 
 func (app *FiberApp) UseUserRoutes() {
