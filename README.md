@@ -1,6 +1,7 @@
 # terminal_commands
 A simple terminal commands restful api implementation in Go
 
-## ORM(gorm)
+### Tools used
 
-## Web framework (fiber)
+- ORM ([gorm](https://gorm.io/docs/)) 
+- Web framework ([Fiber](https://gofiber.io/))
