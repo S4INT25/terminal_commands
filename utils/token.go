@@ -20,7 +20,6 @@ func GenerateJwtToken(user models.User) string {
 		"exp":   time.Date(2024, 10, 10, 12, 0, 0, 0, time.UTC).Unix(),
 	})
 
-	// Sign and get the complete encoded token as a string using the secret
 	tokenString, err := token.SignedString(secretKey)
 
 	if err != nil {

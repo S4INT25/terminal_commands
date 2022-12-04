@@ -26,7 +26,9 @@ func GetCommands(c *fiber.Ctx) error {
 func AddCommand(c *fiber.Ctx) error {
 
 	var command models.Command
+
 	err := c.BodyParser(&command)
+
 	if err != nil {
 		return c.SendString(fmt.Sprintf("Error %v", err))
 	}
