@@ -1,0 +1,44 @@
+GET localhost:3000/commands
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiZXhwIjoxNzI4NTYxNjAwLCJpZCI6MX0.mjscH31l4ZJxoKb96336LqTTplr8tE4M4mT-x2TdI5Q
+
+
+###
+
+
+POST localhost:3000/commands
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiZXhwIjoxNzI4NTYxNjAwLCJpZCI6MX0.mjscH31l4ZJxoKb96336LqTTplr8tE4M4mT-x2TdI5Q
+
+
+
+{
+  "name": "ls",
+  "description": "List directories",
+  "platform": 1
+}
+
+###
+
+DELETE localhost:3000/commands/1
+
+###
+
+POST localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "test",
+  "email": "test@gmail.com",
+  "password": "123456"
+}
+
+###
+
+POST localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "test@gmail.com",
+  "password": "123456"
+}
